@@ -4,31 +4,32 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NextFunction, Request, Response } from 'express';
 import basicAuth from 'basic-auth';
+import { NotFoundExceptionFilter } from './exception/not-found-exception';
+import { ErrorInterceptor } from './interceptor/error.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  app.use('/docs', (req: Request, res: Response, next: NextFunction) => {
-    const credentials = basicAuth(req);
-    if (
-      !credentials ||
-      credentials.name !== 'asdfghjkl;' ||
-      credentials.pass !== 'asdfghjkl;'
-    ) {
-      res.setHeader('WWW-Authenticate', 'Basic realm="swagger"');
-      res.status(401).send('Unauthorized');
-    } else {
-      next();
-    }
-  });
+  // app.use('/docs', (req: Request, res: Response, next: NextFunction) => {
+  //   const credentials = basicAuth(req);
+  //   if (
+  //     !credentials ||
+  //     credentials.name !== 'asdfghjkl;' ||
+  //     credentials.pass !== 'asdfghjkl;'
+  //   ) {
+  //     res.setHeader('WWW-Authenticate', 'Basic realm="swagger"');
+  //     res.status(401).send('Unauthorized');
+  //   } else {
+  //     next();
+  //   }
+  // });
 
   app.setGlobalPrefix('api');
   // app.enableVersioning({
   //   type: VersioningType.URI,
   // });
   app.enableCors();
-  // app.useGlobalFilters(new NotFoundExceptionFilter());
-  app.useGlobalFilters(new);
+  app.useGlobalFilters(new NotFoundExceptionFilter());
   app.useGlobalInterceptors(new ErrorInterceptor());
   app.useGlobalPipes(
     new ValidationPipe({
@@ -38,7 +39,7 @@ async function bootstrap() {
     }),
   );
   const development = process.env.NODE_ENV === 'development';
-  if (development) {
+  if (1) {
     const config = new DocumentBuilder()
       .addBearerAuth()
       .setTitle('Ko HAK API Service')
@@ -51,8 +52,8 @@ async function bootstrap() {
     SwaggerModule.setup('/docs', app, document);
   }
 
-  await app.listen(3003).then(() => {
-    Logger.log('🚀 Gateway Server Successfully started');
+  await app.listen(4000).then(() => {
+    Logger.log('🚀 Gateway Server Successfully started at 4000');
   });
 }
 bootstrap();
