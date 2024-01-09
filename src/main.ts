@@ -2,10 +2,13 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { Logger, ValidationPipe } from '@nestjs/common';
-import { NextFunction, Request, Response } from 'express';
-import basicAuth from 'basic-auth';
+// import { NextFunction, Request, Response } from 'express';
+// import basicAuth from 'basic-auth';
 import { NotFoundExceptionFilter } from './exception/not-found-exception';
 import { ErrorInterceptor } from './interceptor/error.interceptor';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -39,7 +42,7 @@ async function bootstrap() {
     }),
   );
   const development = process.env.NODE_ENV === 'development';
-  if (1) {
+  if (development) {
     const config = new DocumentBuilder()
       .addBearerAuth()
       .setTitle('Ko HAK API Service')
