@@ -1,6 +1,6 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ApiBody, ApiProperty } from '@nestjs/swagger';
+import { ApiBody, ApiProperty, ApiQuery } from '@nestjs/swagger';
 
 export class JsonType {
   @ApiProperty()
@@ -8,6 +8,14 @@ export class JsonType {
 
   @ApiProperty()
   phone: string;
+
+  @ApiProperty()
+  keyName: string;
+}
+
+class QueryData {
+  @ApiProperty()
+  key: string;
 }
 
 @Controller('test')
@@ -26,7 +34,7 @@ export class AppController {
   }
 
   @Get('redis')
-  getJSONfromRedis() {
-    return this.appService.getJSON();
+  getJSONfromRedis(@Query() data: QueryData) {
+    return this.appService.getJSON(data.key);
   }
 }

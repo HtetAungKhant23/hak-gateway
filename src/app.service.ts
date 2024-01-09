@@ -17,8 +17,8 @@ export class AppService {
     return this.client.send({ cmd: 'redis-set' }, data);
   }
 
-  getJSON() {
-    console.log('let get it baby');
-    return this.client.send({ cmd: 'redis-get' }, {});
+  getJSON(data: string) {
+    console.log('let get it baby', data);
+    return this.client.send({ cmd: 'redis-get' }, data);
   }
 }
