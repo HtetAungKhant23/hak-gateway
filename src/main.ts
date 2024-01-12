@@ -55,8 +55,8 @@ async function bootstrap() {
     SwaggerModule.setup('/docs', app, document);
   }
 
-  await app.listen(4000).then(() => {
-    Logger.log('🚀 Gateway Server Successfully started at 4000');
+  await app.listen(3003).then(() => {
+    Logger.log('🚀 Gateway Server Successfully started at 3003');
   });
 }
 bootstrap();
