@@ -5,7 +5,7 @@ import { JsonType } from './app.controller';
 @Injectable()
 export class AppService {
   constructor(
-    @Inject('USER_SERVICE') private readonly client: ClientProxy,
+    @Inject('AUTH_SERVICE') private readonly client: ClientProxy,
     @Inject('PRODUCT_SERVICE') private readonly product: ClientProxy,
   ) {}
 

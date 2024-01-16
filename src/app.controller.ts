@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
-import { ApiBody, ApiProperty, ApiQuery } from '@nestjs/swagger';
+import { ApiBody, ApiProperty } from '@nestjs/swagger';
 
 export class JsonType {
   @ApiProperty()
