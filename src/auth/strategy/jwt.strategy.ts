@@ -3,10 +3,9 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-// ? this is work like a middleware for @UseGuard()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor() {
-    console.log('hh');
+    // ? verify jwt token in parent class cause of super method and then called validate method
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
       secretOrKey: process.env.JWT_SECRET,
@@ -14,7 +13,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: { id: string; role: string }) {
-    console.log(payload);
+    // ? any other business logic can do here
     return { ...payload };
   }
 }
