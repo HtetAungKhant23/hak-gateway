@@ -15,6 +15,7 @@ export class RoleGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
+    // ? when an endpoint has @UseGuard(RoleGuard), get the value of arg in @Roles() decorator and then return that value
     const requiredRoles = this.reflector.getAllAndOverride<'Admin' | 'User'>(
       Role_Key,
       [context.getHandler(), context.getClass()],
