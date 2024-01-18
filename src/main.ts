@@ -41,19 +41,17 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
-  const development = process.env.NODE_ENV === 'development';
-  if (development) {
-    const config = new DocumentBuilder()
-      .addBearerAuth()
-      .setTitle('Ko HAK API Service')
-      .setTermsOfService('Terms Of Service')
-      .setDescription(
-        'HAK API Service is a robust and user-friendly platform that allows developers to integrate taxi booking and ride-hailing capabilities into their applications. ',
-      )
-      .build();
-    const document = SwaggerModule.createDocument(app, config);
-    SwaggerModule.setup('/docs', app, document);
-  }
+
+  const config = new DocumentBuilder()
+    .addBearerAuth()
+    .setTitle('Ko HAK API Service')
+    .setTermsOfService('Terms Of Service')
+    .setDescription(
+      'HAK API Service is a robust and user-friendly platform that allows developers to integrate taxi booking and ride-hailing capabilities into their applications. ',
+    )
+    .build();
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('/docs', app, document);
 
   await app.listen(3003).then(() => {
     Logger.log('🚀 Gateway Server Successfully started at 3003');
