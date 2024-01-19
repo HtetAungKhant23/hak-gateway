@@ -21,6 +21,7 @@ export class RoleGuard implements CanActivate {
       [context.getHandler(), context.getClass()],
     );
 
+    // ? this is the business logic that checking role between requiredRole and current user role
     const request = context.switchToHttp().getRequest();
     const currentUser = request['user'] as currentUserDto;
 
