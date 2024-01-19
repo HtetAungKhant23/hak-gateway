@@ -13,7 +13,7 @@ export class InviteStaff {
   name: string;
 
   @ApiProperty()
-  @IsPhoneNumber()
+  @IsString()
   phone: string;
 
   @ApiProperty()
