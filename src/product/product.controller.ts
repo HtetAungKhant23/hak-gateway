@@ -6,6 +6,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  Request,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/create-product.dto';
@@ -25,9 +26,12 @@ export class ProductController {
   @Roles('User')
   @Post()
   @ApiBody({ type: CreateProductDto })
-  create(@Body() createProductDto: CreateProductDto) {
-    console.log('ayy');
-    return this.productService.create(createProductDto);
+  create(
+    @Body() dto: CreateProductDto,
+    @Request() req: { user: { id: string; role: string } },
+  ) {
+    // console.log('ayy', req.user.id);
+    return this.productService.create(dto, req.user.id);
   }
 
   @Public()
@@ -38,7 +42,7 @@ export class ProductController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.productService.findOne(+id);
+    return this.productService.findOne(id);
   }
 
   @Delete(':id')

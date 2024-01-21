@@ -7,6 +7,18 @@ export class CreateProductDto {
   name: string;
 
   @ApiProperty()
+  @IsString()
+  dec: string;
+
+  @ApiProperty()
+  @IsString()
+  categoryId: string;
+
+  @ApiProperty()
+  @IsString()
+  brandId: string;
+
+  @ApiProperty()
   @IsNumber()
-  price: number;
+  unitPrice: number;
 }
