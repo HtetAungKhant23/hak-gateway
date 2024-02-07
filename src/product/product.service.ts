@@ -7,20 +7,19 @@ export class ProductService {
   constructor(
     @Inject('PRODUCT_SERVICE') private readonly client: ClientProxy,
   ) {}
-  async create(dto: CreateProductDto, userId: string) {
-    dto['createdBy'] = userId;
+  async create(dto: CreateProductDto) {
     return this.client.send({ cmd: 'create-product' }, dto);
   }
 
-  findAll() {
-    return `This action returns all product`;
+  async findAll() {
+    return this.client.send({ cmd: 'fetch-all-product' }, '');
   }
 
-  findOne(id: string) {
+  async findOne(id: string) {
     return this.client.send({ cmd: 'fetch-product-detail' }, id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} product`;
+  async remove(id: number) {
+    return this.client.send({ cmd: 'delete-product' }, id);
   }
 }

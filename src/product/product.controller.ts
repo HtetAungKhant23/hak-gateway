@@ -17,24 +17,23 @@ import { RoleGuard } from 'src/auth/guard/role.guard';
 import { Roles } from 'src/auth/decorator/role.decorator';
 
 @ApiTags('Product')
-@ApiBearerAuth()
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
+  @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
-  @Roles('User')
+  @Roles('SuperAdmin')
   @Post()
   @ApiBody({ type: CreateProductDto })
   create(
     @Body() dto: CreateProductDto,
     @Request() req: { user: { id: string; role: string } },
   ) {
-    // console.log('ayy', req.user.id);
-    return this.productService.create(dto, req.user.id);
+    dto['createdBy'] = req.user.id;
+    return this.productService.create(dto);
   }
 
-  @Public()
   @Get()
   findAll() {
     return this.productService.findAll();
@@ -45,6 +44,9 @@ export class ProductController {
     return this.productService.findOne(id);
   }
 
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard, RoleGuard)
+  @Roles('SuperAdmin')
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.productService.remove(+id);

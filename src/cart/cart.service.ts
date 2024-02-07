@@ -1,20 +1,16 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateCartDto, UpdateCartDto } from './dto/create-cart.dto';
+import { UpdateCartDto } from './dto/create-cart.dto';
 import { ClientProxy } from '@nestjs/microservices';
-import { ProductService } from 'src/product/product.service';
 
 @Injectable()
 export class CartService {
-  constructor(
-    @Inject('CART_SERVICE') private readonly client: ClientProxy,
-    @Inject('PRODUCT_SERVICE') private readonly pClient: ClientProxy,
-    private productService: ProductService,
-  ) {}
+  constructor(@Inject('CART_SERVICE') private readonly client: ClientProxy) {}
 
-  async create(dto: CreateCartDto) {
-    const tt = this.productService.findOne(dto.productId);
-    console.log(tt);
-    // return this.cartClient.send({ cmd: 'create-cart' }, dto);
+  async create(
+    cartItems: { productId: string; unitPrice: number; quantity: number }[],
+    userId: string,
+  ) {
+    return this.client.send({ cmd: 'create-cart' }, { cartItems, userId });
   }
 
   findAll() {

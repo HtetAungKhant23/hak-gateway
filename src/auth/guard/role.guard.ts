@@ -5,7 +5,7 @@ import { Role_Key } from '../decorator/role.decorator';
 
 export type currentUserDto = {
   id: string;
-  role: 'Admin' | 'User';
+  role: 'SuperAdmin' | 'User';
 };
 
 @Injectable()
