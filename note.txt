@@ -7,3 +7,14 @@ multi-service ko REDIS transport use p run ml so yin redis port 6379 1 khu mhr p
 
 ==== lastValueFrom() from rxjs =====
 when need to jump other service use it (eg. in order service)
+
+
+**** Most transporters natively support both request-response and event-based message styles ****
+
+==== Request-response message style ====
+The request-response message style is useful when you need to exchange messages between various external services.
+With this paradigm, you can be certain that the service has actually received the message (without the need to manually implement a message ACK protocol).
+However, the request-response paradigm is not always the best choice.
+
+!!!! streaming transporters that use log-based persistence, such as Kafka or NATS streaming, are optimized for solving a different range of issues, more aligned with an event messaging paradigm !!!!
+
