@@ -7,11 +7,11 @@ import {
   Delete,
   UseGuards,
   Request,
+  Patch,
 } from '@nestjs/common';
 import { ProductService } from './product.service';
-import { CreateProductDto } from './dto/create-product.dto';
+import { CreateProductDto, UpdateProductDto } from './dto/create-product.dto';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
-import { Public } from 'src/auth/decorator';
 import { JwtGuard } from 'src/auth/guard/jwt.guard';
 import { RoleGuard } from 'src/auth/guard/role.guard';
 import { Roles } from 'src/auth/decorator/role.decorator';
@@ -47,8 +47,17 @@ export class ProductController {
   @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
   @Roles('SuperAdmin')
+  @Patch(':id')
+  @ApiBody({ type: UpdateProductDto })
+  update(@Param('id') id: string, @Body() dto: UpdateProductDto) {
+    return this.productService.update(id, dto);
+  }
+
+  @ApiBearerAuth()
+  @UseGuards(JwtGuard, RoleGuard)
+  @Roles('SuperAdmin')
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.productService.remove(+id);
+    return this.productService.remove(id);
   }
 }

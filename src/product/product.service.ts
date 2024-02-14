@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateProductDto } from './dto/create-product.dto';
+import { CreateProductDto, UpdateProductDto } from './dto/create-product.dto';
 import { ClientProxy } from '@nestjs/microservices';
 
 @Injectable()
@@ -19,7 +19,11 @@ export class ProductService {
     return this.client.send({ cmd: 'fetch-product-detail' }, id);
   }
 
-  async remove(id: number) {
+  async update(id: string, dto: UpdateProductDto) {
+    return this.client.send({ cmd: 'update-product' }, { id, ...dto });
+  }
+
+  async remove(id: string) {
     return this.client.send({ cmd: 'delete-product' }, id);
   }
 }
