@@ -29,7 +29,7 @@
 //   }
 // }
 
-// ---------- version 2 ------------
+// ? ---------- version 2 (implement Role Guard with access-control[RBAC]) ------------
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { Role_Enum, Role_Key } from '../decorator/role.decorator';
