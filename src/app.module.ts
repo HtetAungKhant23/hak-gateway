@@ -6,6 +6,7 @@ import { AuthModule } from './auth/auth.module';
 import { ProductModule } from './product/product.module';
 import { OrderModule } from './order/order.module';
 import { CartModule } from './cart/cart.module';
+import { AccessControlModule } from './auth/access-control/access-control.module';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { CartModule } from './cart/cart.module';
         },
       },
     ]),
+    AccessControlModule,
     AuthModule,
     ProductModule,
     OrderModule,
