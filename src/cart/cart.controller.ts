@@ -14,14 +14,14 @@ import { CreateCartDto, UpdateCartDto } from './dto/create-cart.dto';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/auth/guard/jwt.guard';
 import { RoleGuard } from 'src/auth/guard/role.guard';
-import { Roles } from 'src/auth/decorator/role.decorator';
+import { Role_Enum, Roles } from 'src/auth/decorator/role.decorator';
 import { ProductService } from 'src/product/product.service';
 import { lastValueFrom } from 'rxjs';
 
 @ApiTags('Cart')
 @ApiBearerAuth()
 @UseGuards(JwtGuard, RoleGuard)
-@Roles('SuperAdmin')
+@Roles(Role_Enum.User)
 @Controller('cart')
 export class CartController {
   constructor(
