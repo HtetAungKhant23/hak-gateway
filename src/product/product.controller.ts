@@ -46,7 +46,7 @@ export class ProductController {
 
   @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
-  @Roles('SuperAdmin')
+  @Roles('Admin')
   @Patch(':id')
   @ApiBody({ type: UpdateProductDto })
   update(@Param('id') id: string, @Body() dto: UpdateProductDto) {
