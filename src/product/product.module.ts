@@ -3,6 +3,7 @@ import { ProductService } from './product.service';
 import { ProductController } from './product.controller';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigModule } from '@nestjs/config';
+import { env } from 'src/configs/env-config';
 
 @Module({
   imports: [
@@ -18,9 +19,9 @@ import { ConfigModule } from '@nestjs/config';
         options: {
           // host: 'localhost',
           // port: 6379,
-          host: process.env.REDIS_HOST,
-          port: +process.env.REDIS_PORT,
-          password: process.env.REDIS_PASSWORD,
+          host: env.host,
+          port: env.port,
+          ...(env.password && { password: env.password }),
         },
       },
     ]),
