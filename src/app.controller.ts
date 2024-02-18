@@ -24,7 +24,7 @@ class QueryData {
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  // ? to reload all microservices cause of using render's deployment architecture of free plan (Free instances spin down after periods of inactivity)
+  // ? to reload all microservices cause of using render's deployment architecture of free plan (free instance will spin down with inactivity, which can delay requests by 50 seconds or more)
   @Get('reload-microservices')
   async reload() {
     return await axios
