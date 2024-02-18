@@ -1,6 +1,8 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiBody, ApiProperty } from '@nestjs/swagger';
+import axios from 'axios';
+import { Responser } from './libs/exception/Responser';
 
 export class JsonType {
   @ApiProperty()
@@ -18,9 +20,30 @@ class QueryData {
   key: string;
 }
 
-@Controller('test')
+@Controller('')
 export class AppController {
   constructor(private readonly appService: AppService) {}
+
+  // ? to reload all microservices cause of using render's deployment architecture of free plan (Free instances spin down after periods of inactivity)
+  @Get('reload-microservices')
+  async reload() {
+    return await axios
+      .get('https://product-service-onjp.onrender.com/reload')
+      .then(() => {
+        return Responser({
+          statusCode: 200,
+          messageEn: 'services reload success',
+          data: null,
+        });
+      })
+      .catch(() => {
+        return Responser({
+          statusCode: 200,
+          messageEn: 'something wrong',
+          data: null,
+        });
+      });
+  }
 
   @Get('multi')
   getHello() {
