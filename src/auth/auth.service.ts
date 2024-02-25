@@ -13,8 +13,4 @@ export class AuthService {
   login(dto: LoginDto) {
     return this.client.send({ cmd: 'sign-in' }, dto);
   }
-
-  checkPermission(role_id: any) {
-    return this.client.send({ cmd: 'check-permission' }, { role_id });
-  }
 }
