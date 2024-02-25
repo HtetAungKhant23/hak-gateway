@@ -37,8 +37,8 @@ import { Reflector } from '@nestjs/core';
 import { AccessControlService } from '../access-control/access-control.service';
 
 export type currentUserDto = {
-  id: string;
-  role: Role_Enum;
+  user_id: string;
+  role_name: Role_Enum;
 };
 @Injectable()
 export class RoleGuard implements CanActivate {
@@ -59,7 +59,7 @@ export class RoleGuard implements CanActivate {
 
     for (const role of requiredRoles) {
       const result = this.accessControlService.isAuthorized({
-        currentRole: currentUser.role,
+        currentRole: currentUser.role_name,
         requiredRole: role,
       });
       if (result) {

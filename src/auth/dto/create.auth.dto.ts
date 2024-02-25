@@ -50,11 +50,11 @@ export class SignupDto {
 }
 
 export class LoginDto {
-  @ApiProperty({ example: 'super@gmail.com' })
+  @ApiProperty({ example: 'superAdmin@gmail.com' })
   @IsEmail()
   email: string;
 
-  @ApiProperty({ example: 'super@gmail.com' })
+  @ApiProperty({ example: '123456' })
   @IsString()
   password: string;
 }

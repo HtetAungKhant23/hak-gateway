@@ -23,7 +23,7 @@ export class ProductController {
 
   @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
-  @Roles(Role_Enum.Admin)
+  @Roles(Role_Enum.SuperAdmin)
   @Post()
   @ApiBody({ type: CreateProductDto })
   create(
@@ -46,7 +46,7 @@ export class ProductController {
 
   @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
-  @Roles(Role_Enum.Admin)
+  @Roles(Role_Enum.SuperAdmin)
   @Patch(':id')
   @ApiBody({ type: UpdateProductDto })
   update(@Param('id') id: string, @Body() dto: UpdateProductDto) {
@@ -55,7 +55,7 @@ export class ProductController {
 
   @ApiBearerAuth()
   @UseGuards(JwtGuard, RoleGuard)
-  @Roles(Role_Enum.Admin)
+  @Roles(Role_Enum.SuperAdmin)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.productService.remove(id);

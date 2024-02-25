@@ -5,7 +5,6 @@ import {
   Injectable,
   NestInterceptor,
 } from '@nestjs/common';
-import { error } from 'console';
 import { Observable, catchError, throwError } from 'rxjs';
 
 @Injectable()
