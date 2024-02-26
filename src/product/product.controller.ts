@@ -15,15 +15,16 @@ import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/auth/guard/jwt.guard';
 import { RoleGuard } from 'src/auth/guard/role.guard';
 import { Role_Enum, Roles } from 'src/auth/decorator/role.decorator';
+import { Public } from 'src/auth/decorator';
 
 @ApiTags('Product')
+@ApiBearerAuth()
+@UseGuards(JwtGuard, RoleGuard)
+@Roles(Role_Enum.SuperAdmin)
 @Controller('product')
 export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
-  @ApiBearerAuth()
-  @UseGuards(JwtGuard, RoleGuard)
-  @Roles(Role_Enum.SuperAdmin)
   @Post()
   @ApiBody({ type: CreateProductDto })
   create(
@@ -34,28 +35,24 @@ export class ProductController {
     return this.productService.create(dto);
   }
 
+  @Public()
   @Get()
   findAll() {
     return this.productService.findAll();
   }
 
+  @Public()
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.productService.findOne(id);
   }
 
-  @ApiBearerAuth()
-  @UseGuards(JwtGuard, RoleGuard)
-  @Roles(Role_Enum.SuperAdmin)
   @Patch(':id')
   @ApiBody({ type: UpdateProductDto })
   update(@Param('id') id: string, @Body() dto: UpdateProductDto) {
     return this.productService.update(id, dto);
   }
 
-  @ApiBearerAuth()
-  @UseGuards(JwtGuard, RoleGuard)
-  @Roles(Role_Enum.SuperAdmin)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.productService.remove(id);

@@ -35,6 +35,7 @@ import { Observable } from 'rxjs';
 import { Role_Enum, Role_Key } from '../decorator/role.decorator';
 import { Reflector } from '@nestjs/core';
 import { AccessControlService } from '../access-control/access-control.service';
+import { IS_PUBLIC_KEY } from '../decorator';
 
 export type currentUserDto = {
   user_id: string;
@@ -50,6 +51,14 @@ export class RoleGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
+    const isPublic = this.reflector.getAllAndOverride<boolean>(IS_PUBLIC_KEY, [
+      context.getHandler(),
+      context.getClass(),
+    ]);
+    if (isPublic) {
+      return true;
+    }
+
     const requiredRoles = this.reflector.getAllAndOverride<Role_Enum[]>(
       Role_Key,
       [context.getHandler(), context.getClass()],
