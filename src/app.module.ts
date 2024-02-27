@@ -9,6 +9,7 @@ import { CartModule } from './cart/cart.module';
 import { AccessControlModule } from './auth/access-control/access-control.module';
 import { ConfigModule } from '@nestjs/config';
 import { env } from './configs/env-config';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -59,6 +60,7 @@ import { env } from './configs/env-config';
     ProductModule,
     OrderModule,
     CartModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
