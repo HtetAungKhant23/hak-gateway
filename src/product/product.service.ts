@@ -12,7 +12,7 @@ export class ProductService {
   }
 
   async findAll() {
-    return this.client.send({ cmd: 'fetch-all-product' }, '');
+    return this.client.send({ cmd: 'fetch-products' }, '');
   }
 
   async findOne(id: string) {
