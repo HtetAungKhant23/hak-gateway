@@ -10,6 +10,7 @@ import { AccessControlModule } from './auth/access-control/access-control.module
 import { ConfigModule } from '@nestjs/config';
 import { env } from './configs/env-config';
 import { CategoryModule } from './category/category.module';
+import { BrandModule } from './brand/brand.module';
 
 @Module({
   imports: [
@@ -61,6 +62,7 @@ import { CategoryModule } from './category/category.module';
     OrderModule,
     CartModule,
     CategoryModule,
+    BrandModule,
   ],
   controllers: [AppController],
   providers: [AppService],
